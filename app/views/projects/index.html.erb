@@ -1,0 +1,60 @@
+<h1> Задачи </h1>
+<table>
+<% @Projecto.each do |proj| %>
+		<tr>  <h2> <%= proj.title %> </h2> </tr>
+		<ul>
+			<% proj.todos.each  do |tod| %>
+				<li>	<%= tod.text %>  </li>
+			<% end %>
+		</ul>
+		</tr>
+	<% end %>
+</table>
+
+<h1> Новая задача </h1>
+
+
+<div id ='mydiv'>
+	<%= form_with scope: :article, local: true do |form| %>
+	<p>
+	<%= form.label :'Название задачи' %> </p>
+	<p> <%= form.text_field :'поле для ввода' %>
+	</p>
+
+	<select name = "userid">
+	<%= @Projecto.each do |proj| %> 
+	<option value="<%= proj.id %>"><%= proj.title %></option>
+	<% end %>
+	</select>
+	<p>
+	<%= form.submit :Отправить %>
+	<input value="Отмена" onclick="hidde()" type="button">
+	
+</div>
+<p>
+	<div id ='mydiv2'>	
+		<input value="Добавить новую задачу" onclick="unhidde()" type="button">
+	</div>
+	<script type="text/javascript">
+		hidde();
+		function hidde()
+		{
+			var div = document.getElementById('mydiv');
+			div.style.visibility = "hidden";
+			div.style.display = "none";
+			var div = document.getElementById('mydiv2');
+			div.style.visibility = "visible";
+			div.style.display = "block";
+		}
+		function unhidde()
+		{
+			var div = document.getElementById('mydiv');
+			div.style.visibility = "visible";
+			div.style.display = "block";
+			var div = document.getElementById('mydiv2');
+			div.style.visibility = "hidden";
+			div.style.display = "none";
+		}
+	</script>
+	
+<% end %>
